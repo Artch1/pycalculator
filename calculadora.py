@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import *
+import math
 
 root = tk.Tk()
-root.title('Calculadora')
+root.title('Py Calculator')
 root.resizable(width=False, height=False)
 
 #Variáveis e Listas
@@ -20,6 +21,8 @@ def insert(num):
             inputs += '*'
         elif num == '÷':
             inputs += '/'
+        elif num == 'sqrt(':
+            inputs += 'math.sqrt('
         else:
             inputs += num
 
@@ -41,6 +44,16 @@ def resultado():
     visoroutput['text'] = ""
     global inputs
     visoroutput['text'] = eval(inputs)
+
+def menu():
+    root2 = tk.Tk()
+    root2.title('...')
+    root2.resizable(width=False, height=False)
+
+    but0 = Button(root2, text='√', bd='0', font='Calibri 10 bold', height='3', width='8', command=lambda: insert('sqrt('))
+    but0.grid(row=0, column=0)
+
+    root2.mainloop()
 
 #Visor
 visorinput = Label(root, text = '', bd = '0', bg = '#DADADA', font = 'Calibri 10 bold', height = '3', width = '36')
@@ -104,10 +117,19 @@ but0.grid(row = 6, column = 1)
 butdot = Button(root, text = '.', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = lambda:insert('.'))
 butdot.grid(row = 6, column = 0)
 
-butdel = Button(root, text = 'Delete',  bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = delete)
+but9 = Button(root, text = ')', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = lambda:insert(')'))
+but9.grid(row = 7, column = 3)
+
+but9 = Button(root, text = '(', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = lambda:insert('('))
+but9.grid(row = 7, column = 0)
+
+butdel = Button(root, text = 'DEL',  bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = delete)
 butdel.grid(row = 2, column = 2, columnspan = 2, sticky = 'e' + 'w')
 
-butlimp = Button(root, text = 'Limpar', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = limpar)
+butlimp = Button(root, text = 'CLEAR', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = limpar)
 butlimp.grid(row = 2, column = 0, columnspan = 2, sticky = 'e' + 'w')
+
+butlimp = Button(root, text = '...', bd = '0', font = 'Calibri 10 bold', height = '1', width = '8', command = menu)
+butlimp.grid(row = 7, column = 1, columnspan = 2, sticky = 'e' + 'w')
 
 root.mainloop()
