@@ -8,9 +8,22 @@ root.resizable(width=False, height=False)
 
 #Variáveis e Listas
 inputs = " "
-ops = ['×', '÷', '.', '*', '/', ' ']
+ops = ['×', '÷', '.', '*', '/', ' ', '**']
 
 #Funções
+
+def helpindex():
+    root3 = tk.Tk()
+    root3.title('Py Calculator')
+    root3.resizable(width=False, height=False)
+
+    text1 = Text(root3)
+    text1.insert(INSERT, 'To be')
+    text1.insert(END, " added...")
+    text1.pack()
+
+    root3.mainloop()
+
 def insert(num):
     global inputs
     if inputs[-1] in ops and num in ops:
@@ -21,8 +34,6 @@ def insert(num):
             inputs += '*'
         elif num == '÷':
             inputs += '/'
-        elif num == 'sqrt(':
-            inputs += 'math.sqrt('
         else:
             inputs += num
 
@@ -47,13 +58,26 @@ def resultado():
 
 def menu():
     root2 = tk.Tk()
-    root2.title('...')
+    root2.title('More')
     root2.resizable(width=False, height=False)
 
-    but0 = Button(root2, text='√', bd='0', font='Calibri 10 bold', height='3', width='8', command=lambda: insert('sqrt('))
+    but0 = Button(root2, text='√', bd='0', font='Calibri 10 bold', height='3', width='16', command=lambda: insert('math.sqrt('))
     but0.grid(row=0, column=0)
+    but0 = Button(root2, text='xⁿ', bd='0', font='Calibri 10 bold', height='3', width='16', command=lambda: insert('**'))
+    but0.grid(row=0, column=1)
 
     root2.mainloop()
+
+#Menu
+menubar = Menu(root)
+filemenu = Menu(menubar, tearoff=0)
+filemenu.add_command(label="More", command=menu)
+menubar.add_cascade(label="File", menu=filemenu)
+
+helpmenu = Menu(menubar, tearoff=0)
+helpmenu.add_command(label="Help Index", command=helpindex)
+helpmenu.add_command(label="About...", command=helpindex)
+menubar.add_cascade(label="Help", menu=helpmenu)
 
 #Visor
 visorinput = Label(root, text = '', bd = '0', bg = '#DADADA', font = 'Calibri 10 bold', height = '3', width = '36')
@@ -118,18 +142,16 @@ butdot = Button(root, text = '.', bd = '0', font = 'Calibri 10 bold', height = '
 butdot.grid(row = 6, column = 0)
 
 but9 = Button(root, text = ')', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = lambda:insert(')'))
-but9.grid(row = 7, column = 3)
+but9.grid(row = 2, column = 3)
 
 but9 = Button(root, text = '(', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = lambda:insert('('))
-but9.grid(row = 7, column = 0)
+but9.grid(row = 2, column = 0)
 
 butdel = Button(root, text = 'DEL',  bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = delete)
-butdel.grid(row = 2, column = 2, columnspan = 2, sticky = 'e' + 'w')
+butdel.grid(row = 2, column = 2, sticky = 'e' + 'w')
 
 butlimp = Button(root, text = 'CLEAR', bd = '0', font = 'Calibri 10 bold', height = '3', width = '8', command = limpar)
-butlimp.grid(row = 2, column = 0, columnspan = 2, sticky = 'e' + 'w')
+butlimp.grid(row = 2, column = 1, sticky = 'e' + 'w')
 
-butlimp = Button(root, text = '...', bd = '0', font = 'Calibri 10 bold', height = '1', width = '8', command = menu)
-butlimp.grid(row = 7, column = 1, columnspan = 2, sticky = 'e' + 'w')
-
+root.config(menu=menubar)
 root.mainloop()
