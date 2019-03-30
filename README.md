@@ -1,6 +1,8 @@
 # pycalculator
 A basic calculator with graphic interface in Python, created to test TKinter's potential.
+
 Picture preview: https://i.imgur.com/5rgPTqA.png
+
 
 Things to consider:
 1. The software code and documentation are all in portuguese, as this is a personal project.
